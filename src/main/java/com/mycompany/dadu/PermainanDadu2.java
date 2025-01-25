@@ -327,7 +327,15 @@ public class PermainanDadu2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonTentangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTentangActionPerformed
-        JOptionPane.showMessageDialog(this, "Tugas Akhir Mata Kuliah PBO\nKelompok 2\n");
+        JOptionPane.showMessageDialog(
+            this,
+            "Tugas Akhir Mata Kuliah PBO\n"
+                + "Kelompok 2\n"
+                + "231232014 Muhamad Kosasih\n"
+                + "231232022 Raihan Ramadhan\n"
+                + "231232026 Muhammad Faisal Padhly\n"
+                + "231232028 Falmesino Abdul Hamid\n"
+        );
     }//GEN-LAST:event_ButtonTentangActionPerformed
 
     private void ButtonWithdrawalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonWithdrawalActionPerformed
@@ -380,74 +388,80 @@ public class PermainanDadu2 extends javax.swing.JFrame {
         
         // Kalau taruhannya tidak kosong, maka...
         if (input != null && !input.isEmpty()) {
-            try {
-                // Ubah nilai taruhan dari String menjadi integer
-                int taruhan = Integer.parseInt(input);
+            if (input.length() > 10) {
+                // Validasi jika input taruhan terlalu banyak                
+                JOptionPane.showMessageDialog(null, "Taruhan terlalu besar!.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                try {
+                    // Ubah nilai taruhan dari String menjadi integer
+                    int taruhan = Integer.parseInt(input);
 
-                // Validasi nilai taruhan tidak boleh nol atau negatif
-                if (taruhan <= 0) {
-                    JOptionPane.showMessageDialog(null, "Taruhan harus lebih dari 0.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                // Validasi jika saldo mencukupi
-                else if (taruhan > pemain.getSaldo()) {
-                    JOptionPane.showMessageDialog(
-                        null,
-                        "Taruhan melebihi saldo Anda. Saldo Anda: " + CurrencyFormatter.formatAsRupiah(pemain.getSaldo()),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE
-                   );
-                }
-                // Jika semua persyaratan oke, kocok dadunya
-                else {
-                    
-                    /**
-                     * kocokDadu() akan menghasilkan array/larik/deret
-                     * dengan urutan sebagai berikut:
-                     * 0 => angka dadu 1
-                     * 1 => angka dadu 2
-                     * 2 => total dari angka dadu 1 dan 2
-                     */
-                    int[] angkaDadu = dadu.kocokDadu();
-                    int total = angkaDadu[2];
-                    
-                    // Menentukan tebakan benar atau tidak
-                    boolean menang = dadu.isMenang(jenis, total);
-                        
-                    // Menampilkan angka pada dadu
-                    LabelDadu1.setText(Integer.toString(angkaDadu[0]));
-                    LabelDadu2.setText(Integer.toString(angkaDadu[1]));
-                    
-                    // Pesan kemenangan
-                    String pesan = "Tidak gacor, kang!";
-                    
-                    if (menang) {
-                        // Jika menang, tambah saldo sesuai taruhan
-                        pemain.tambahSaldo(taruhan);
-                        
-                        // Atur pesan
-                        pesan = "Gacor, kang!";
-                    } else {
-                        // Jika kalah, kurangi saldo sesuai taruhan
-                        pemain.kurangiSaldo(taruhan);
+                    // Validasi nilai taruhan tidak boleh nol atau negatif
+                    if (taruhan <= 0) {
+                        JOptionPane.showMessageDialog(null, "Taruhan harus lebih dari 0.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    
-                    JOptionPane.showMessageDialog(
-                        null,
-                        pesan + " (" + total + ")",
-                        "Informasi",
-                        JOptionPane.INFORMATION_MESSAGE
-                    );
-                    
-                    // Perbarui teks saldo
-                    pemain.updateSaldo(LabelSaldo);
-                    
-                    // Histori Permainan
-                    historiPermainan.tambahHistoriPermainan(jenis, total, menang, taruhan, pemain.getSaldo());
+                    // Validasi jika saldo mencukupi
+                    else if (taruhan > pemain.getSaldo()) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Taruhan melebihi saldo Anda. Saldo Anda: " + CurrencyFormatter.formatAsRupiah(pemain.getSaldo()),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                       );
+                    }
+                    // Jika semua persyaratan oke, kocok dadunya
+                    else {
+
+                        /**
+                         * kocokDadu() akan menghasilkan array/larik/deret
+                         * dengan urutan sebagai berikut:
+                         * 0 => angka dadu 1
+                         * 1 => angka dadu 2
+                         * 2 => total dari angka dadu 1 dan 2
+                         */
+                        int[] angkaDadu = dadu.kocokDadu();
+                        int total = angkaDadu[2];
+
+                        // Menentukan tebakan benar atau tidak
+                        boolean menang = dadu.isMenang(jenis, total);
+
+                        // Menampilkan angka pada dadu
+                        LabelDadu1.setText(Integer.toString(angkaDadu[0]));
+                        LabelDadu2.setText(Integer.toString(angkaDadu[1]));
+
+                        // Pesan kemenangan
+                        String pesan = "Tidak gacor, kang!";
+
+                        if (menang) {
+                            // Jika menang, tambah saldo sesuai taruhan
+                            pemain.tambahSaldo(taruhan);
+
+                            // Atur pesan
+                            pesan = "Gacor, kang!";
+                        } else {
+                            // Jika kalah, kurangi saldo sesuai taruhan
+                            pemain.kurangiSaldo(taruhan);
+                        }
+
+                        JOptionPane.showMessageDialog(
+                            null,
+                            pesan + " (" + total + ")",
+                            "Informasi",
+                            JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                        // Perbarui teks saldo
+                        pemain.updateSaldo(LabelSaldo);
+
+                        // Histori Permainan
+                        historiPermainan.tambahHistoriPermainan(jenis, total, menang, taruhan, pemain.getSaldo());
+                    }
+                } catch (NumberFormatException e) {
+                    // Validasi jika nilai taruhan bukan angka
+                    JOptionPane.showMessageDialog(null, "Taruhan harus berupa angka.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (NumberFormatException e) {
-                // Validasi jika nilai taruhan bukan angka
-                JOptionPane.showMessageDialog(null, "Input harus berupa angka.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         } else {
             // Jika inputan taruhan kosong
             JOptionPane.showMessageDialog(null, "Anda tidak memasukkan taruhan.", "Error", JOptionPane.ERROR_MESSAGE);
