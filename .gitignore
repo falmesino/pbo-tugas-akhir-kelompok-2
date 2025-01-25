@@ -1,0 +1,59 @@
+# Ignore file hasil kompilasi Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore file log
+*.log
+
+# Ignore file output build
+/target/
+/build/
+/out/
+/bin/
+
+# Ignore file konfigurasi IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+
+# Ignore file sistem operasi
+.DS_Store
+Thumbs.db
+
+# Ignore file environment
+.env
+*.env
+
+# Ignore file dependency (jika menggunakan Maven/Gradle)
+.mvn/
+.m2/
+.gradle/
+**/gradle/
+**/gradlew
+**/gradlew.bat
+**/build/
+**/target/
+
+# Ignore file cache
+**/.cache/
+
+# Ignore file testing
+**/test-output/
+**/test-results/
+
+# Ignore file lainnya
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+*.patch
+*.diff
